@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
+import Modal from "./Modal";
+import "../css/PredictionForm.css";
 
 // Configuration d'axios
 const api = axios.create({
@@ -17,11 +19,11 @@ const PredictionForm = () => {
   const [formData, setFormData] = useState({
     brand: null,
     model: null,
-    year: 2020,
+    year: "",
     transmission: "Automatic",
-    mileage: 50000,
+    mileage: "",
     fuelType: "Petrol",
-    engineSize: 2.0,
+    engineSize: "",
   });
 
   // États pour les options : marques, modèles, prédiction et gestion des erreurs
@@ -30,6 +32,8 @@ const PredictionForm = () => {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   // Charger les marques au montage
   useEffect(() => {
@@ -89,10 +93,73 @@ const PredictionForm = () => {
   // Gestion de la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Vérification des champs obligatoires avec messages en français
+    if (!formData.brand) {
+      setError("Veuillez sélectionner une marque");
+      return;
+    }
+
+    if (!formData.model) {
+      setError("Veuillez sélectionner un modèle");
+      return;
+    }
+
+    if (!formData.year) {
+      setError("Veuillez saisir l'année du véhicule");
+      return;
+    }
+
+    if (!formData.transmission) {
+      setError("Veuillez sélectionner le type de transmission");
+      return;
+    }
+
+    if (!formData.mileage) {
+      setError("Veuillez saisir le kilométrage");
+      return;
+    }
+
+    if (!formData.fuelType) {
+      setError("Veuillez sélectionner le type de carburant");
+      return;
+    }
+
+    if (!formData.engineSize) {
+      setError("Veuillez saisir la taille du moteur");
+      return;
+    }
+
+    // Validation des valeurs numériques
+    const year = parseInt(formData.year);
+    const engineSize = parseFloat(formData.engineSize);
+    const mileage = parseInt(formData.mileage);
+    const currentYear = new Date().getFullYear();
+
+    if (year < 2000 || year > currentYear) {
+      setError(`L'année doit être comprise entre 2000 et ${currentYear}`);
+      return;
+    }
+
+    if (engineSize < 0.1 || engineSize > 10.0) {
+      setError(
+        "La taille du moteur doit être comprise entre 0,1 et 10,0 litres"
+      );
+      return;
+    }
+
+    if (mileage < 0) {
+      setError("Le kilométrage doit être un nombre positif");
+      return;
+    }
+
     setLoading(true);
-    setError(null); // Réinitialiser les erreurs
+    setError(null);
+    setShowLoader(true);
 
     try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       const response = await api.post("/predict", {
         ...formData,
         brand: formData.brand?.value,
@@ -101,38 +168,63 @@ const PredictionForm = () => {
 
       if (response.data.success) {
         setPrediction(response.data);
+        setShowLoader(false);
+        setIsModalOpen(true);
       } else {
         setError(
-          "Erreur lors de la prédiction. Veuillez vérifier vos données."
+          "Une erreur est survenue lors de l'estimation. Veuillez réessayer."
         );
       }
     } catch (err) {
       console.error("Erreur lors de la prédiction :", err);
       setError(
         err.response?.data?.error ||
-          "Une erreur est survenue lors de la prédiction. Veuillez vérifier vos données."
+          "Une erreur est survenue lors de l'estimation. Veuillez vérifier vos données."
       );
       setPrediction(null);
     } finally {
       setLoading(false);
+      setShowLoader(false);
     }
   };
 
   // Gestion des changements de champs du formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
-    let processedValue = value;
 
-    if (name === "year" || name === "mileage") {
-      processedValue = parseInt(value) || 0;
+    if (name === "year") {
+      // Autorise uniquement les chiffres
+      if (value === "" || /^\d{0,4}$/.test(value)) {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
+    } else if (name === "mileage") {
+      // Autorise uniquement les chiffres
+      if (value === "" || /^\d*$/.test(value)) {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
     } else if (name === "engineSize") {
-      processedValue = parseFloat(value) || 0;
+      // Autorise les chiffres, le point et la virgule
+      if (value === "" || /^\d*[.,]?\d*$/.test(value)) {
+        // Remplace la virgule par un point si nécessaire
+        const normalizedValue = value.replace(",", ".");
+        setFormData((prev) => ({
+          ...prev,
+          [name]: normalizedValue,
+        }));
+      }
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     }
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: processedValue,
-    }));
+    setError("");
   };
 
   return (
@@ -174,12 +266,12 @@ const PredictionForm = () => {
         <div className="form-group">
           <label>Année:</label>
           <input
-            type="number"
+            type="text"
             name="year"
             value={formData.year}
             onChange={handleChange}
-            min="2000"
-            max={new Date().getFullYear()}
+            placeholder="Ex: 2020 (entre 2000 et 2024)"
+            title="Veuillez entrer une année entre 2000 et 2024"
             required
           />
         </div>
@@ -202,13 +294,13 @@ const PredictionForm = () => {
         <div className="form-group">
           <label>Kilométrage:</label>
           <input
-            type="number"
+            type="text"
             name="mileage"
             value={formData.mileage}
             onChange={handleChange}
-            min="0"
+            placeholder="Ex: 50000 (en miles)"
+            title="Veuillez entrer un nombre valide pour le kilométrage"
             required
-            placeholder="En miles"
           />
         </div>
 
@@ -229,17 +321,15 @@ const PredictionForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Taille du moteur (L):</label>
+          <label className="engine-size-label">Taille du moteur (L):</label>
           <input
-            type="number"
+            type="text"
             name="engineSize"
-            step="0.1"
             value={formData.engineSize}
             onChange={handleChange}
-            min="0.1"
-            max="10.0"
+            placeholder="Ex: 2.0 (entre 0.1 et 10.0)"
+            title="Veuillez entrer une taille de moteur valide (entre 0.1 et 10.0 L)"
             required
-            placeholder="Ex: 2.0"
           />
         </div>
 
@@ -254,31 +344,43 @@ const PredictionForm = () => {
 
       {error && <div className="error-message">{error}</div>}
 
-      {prediction && (
-        <div className="prediction-results">
-          <h3>Estimation du prix</h3>
-          <div className="price-container">
-            <div className="price-item">
-              <span className="label">Prix en Livres (£):</span>
-              <span className="value">
-                £
-                {prediction.predicted_price.toLocaleString("fr-FR", {
-                  maximumFractionDigits: 2,
-                })}
-              </span>
-            </div>
-            <div className="price-item">
-              <span className="label">Prix en Euros (€):</span>
-              <span className="value">
-                €
-                {prediction.predicted_price_euros.toLocaleString("fr-FR", {
-                  maximumFractionDigits: 2,
-                })}
-              </span>
-            </div>
+      <Modal
+        isOpen={isModalOpen || showLoader}
+        onClose={() => !showLoader && setIsModalOpen(false)}
+      >
+        {showLoader ? (
+          <div className="loader-container">
+            <img src="/car.gif" alt="Chargement..." className="loader-gif" />
+            <p>Calcul du prix en cours...</p>
           </div>
-        </div>
-      )}
+        ) : (
+          prediction && (
+            <div className="prediction-results">
+              <h3>Estimation du prix</h3>
+              <div className="price-container">
+                <div className="price-item">
+                  <span className="label">Prix en Livres (£):</span>
+                  <span className="value">
+                    £
+                    {prediction.predicted_price.toLocaleString("fr-FR", {
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+                <div className="price-item">
+                  <span className="label">Prix en Euros (€):</span>
+                  <span className="value">
+                    €
+                    {prediction.predicted_price_euros.toLocaleString("fr-FR", {
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )
+        )}
+      </Modal>
     </div>
   );
 };

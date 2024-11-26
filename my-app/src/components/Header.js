@@ -22,7 +22,9 @@ const Header = () => {
           <Link to="/PricePrediction" className="header-button">
             Bouton 1
           </Link>
-          <button className="header-button">Bouton 2</button>
+          <Link to="/WeatherPrediction" className="header-button">
+            Bouton 2
+          </Link>
           <button className="header-button">Bouton 3</button>
         </div>
 
