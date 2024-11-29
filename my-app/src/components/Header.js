@@ -1,34 +1,48 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Import Link pour la navigation dynamique
+import { Link, useLocation } from "react-router-dom";
 import "../css/Header.css";
 
 const Header = () => {
+  const location = useLocation();
+
   return (
     <>
       <header className="header">
-        {/* Logo redirige vers l'accueil */}
         <div className="logo">
           <Link to="/" className="logo-link">
             Logo
           </Link>
         </div>
 
-        {/* Espace vide entre le logo et les boutons */}
         <div className="spacer"></div>
 
-        {/* Boutons */}
         <div className="buttons">
-          {/* Bouton 1 redirige dynamiquement sur /PricePrediction */}
-          <Link to="/PricePrediction" className="header-button">
-            Bouton 1
+          <Link
+            to="/PricePrediction"
+            className={`header-button ${
+              location.pathname === "/PricePrediction" ? "active" : ""
+            }`}
+          >
+            Cars Predictions
           </Link>
-          <Link to="/WeatherPrediction" className="header-button">
-            Bouton 2
+          <Link
+            to="/WeatherPrediction"
+            className={`header-button ${
+              location.pathname === "/WeatherPrediction" ? "active" : ""
+            }`}
+          >
+            Weather Prediction
           </Link>
-          <button className="header-button">Bouton 3</button>
+          <Link
+            to="/HeartAttackPrediction"
+            className={`header-button ${
+              location.pathname === "/HeartAttackPrediction" ? "active" : ""
+            }`}
+          >
+            Heart Attack Prediction
+          </Link>
         </div>
 
-        {/* Espace vide à droite */}
         <div className="end-space"></div>
       </header>
       <div className="space1"></div>

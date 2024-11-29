@@ -9,6 +9,7 @@ import "./css/transitions.css"; // Fichier CSS pour les animations
 import WeatherPrediction from "./components/WeatherPrediction";
 import Carroussel from "./components/Carroussel";
 import Footer from "./components/Footer";
+import HeartAttackForm from "./components/Hattack";
 function App() {
   const location = useLocation(); // Permet de détecter la route actuelle
 
@@ -30,6 +31,10 @@ function App() {
             {/* Page de prédiction */}
             <Route path="/PricePrediction" element={<PredictionForm />} />
             <Route path="/WeatherPrediction" element={<WeatherPrediction />} />
+            <Route
+              path="/HeartAttackPrediction"
+              element={<HeartAttackForm />}
+            />
           </Routes>
         </CSSTransition>
       </TransitionGroup>
