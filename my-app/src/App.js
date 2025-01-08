@@ -10,6 +10,13 @@ import WeatherPrediction from "./components/WeatherPrediction";
 import Carroussel from "./components/Carroussel";
 import Footer from "./components/Footer";
 import HeartAttackForm from "./components/Hattack";
+import BaseMod from "./components/BaseMod";
+import StudentGradePrediction from "./components/WinningSco.js";
+import TextPredictionForm from "./components/TextPredictionForm";
+import TextWeatherPrediction from "./components/TextWeatherPrediction";
+import TextWinningSco from "./components/TextWinningSco";
+import TextHattack from "./components/TextHattack";
+
 function App() {
   const location = useLocation(); // Permet de détecter la route actuelle
 
@@ -27,13 +34,43 @@ function App() {
           timeout={300} // Durée des animations
         >
           <Routes location={location}>
-            {/* Page d'accueil */}
-            {/* Page de prédiction */}
-            <Route path="/PricePrediction" element={<PredictionForm />} />
-            <Route path="/WeatherPrediction" element={<WeatherPrediction />} />
+            <Route path="/" element={<BaseMod />} />
+            <Route
+              path="/PricePrediction"
+              element={
+                <>
+                  <TextPredictionForm />
+                  <PredictionForm />
+                </>
+              }
+            />
+
+            <Route
+              path="/WeatherPrediction"
+              element={
+                <>
+                  <TextWeatherPrediction />
+                  <WeatherPrediction />
+                </>
+              }
+            />
             <Route
               path="/HeartAttackPrediction"
-              element={<HeartAttackForm />}
+              element={
+                <>
+                  <TextHattack />
+                  <HeartAttackForm />
+                </>
+              }
+            />
+            <Route
+              path="/WinningSco"
+              element={
+                <>
+                  <TextWinningSco />
+                  <StudentGradePrediction />
+                </>
+              }
             />
           </Routes>
         </CSSTransition>

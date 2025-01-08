@@ -227,9 +227,73 @@ const PredictionForm = () => {
     setError("");
   };
 
+  const currentYear = new Date().getFullYear();
+
+  const generateRandomValues = async () => {
+    try {
+      // Utiliser les marques déjà chargées dans l'état brands
+      if (brands.length === 0) {
+        setError("Veuillez attendre le chargement des marques");
+        return;
+      }
+
+      // Sélection aléatoire d'une marque
+      const randomBrand = brands[Math.floor(Math.random() * brands.length)];
+
+      // Charger les modèles pour cette marque
+      const response = await api.get(`/api/models/${randomBrand.value}`);
+
+      if (!response.data.success || !response.data.models.length) {
+        setError("Erreur lors du chargement des modèles");
+        return;
+      }
+
+      // Sélection aléatoire d'un modèle parmi ceux disponibles
+      const availableModels = response.data.models.map((model) => ({
+        label: model,
+        value: model,
+      }));
+      const randomModel =
+        availableModels[Math.floor(Math.random() * availableModels.length)];
+
+      // Génération des autres valeurs aléatoires
+      const randomData = {
+        brand: randomBrand,
+        model: randomModel,
+        year: Math.floor(
+          Math.random() * (currentYear - 2000) + 2000
+        ).toString(),
+        transmission: ["Automatic", "Manual", "Semi-Auto"][
+          Math.floor(Math.random() * 3)
+        ],
+        mileage: Math.floor(Math.random() * 150000).toString(),
+        fuelType: ["Petrol", "Diesel", "Hybrid", "Electric"][
+          Math.floor(Math.random() * 4)
+        ],
+        engineSize: (Math.random() * (5.0 - 1.0) + 1.0).toFixed(1),
+      };
+
+      setFormData(randomData);
+      setError("");
+    } catch (err) {
+      console.error(
+        "Erreur lors de la génération des valeurs aléatoires:",
+        err
+      );
+      setError("Erreur lors de la génération des valeurs aléatoires");
+    }
+  };
+
   return (
     <div className="prediction-form">
       <h2>Estimation du prix de votre véhicule</h2>
+      <button
+        type="button"
+        onClick={generateRandomValues}
+        className="random-button"
+      >
+        Générer des valeurs aléatoires
+      </button>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">

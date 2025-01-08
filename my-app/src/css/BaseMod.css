@@ -1,0 +1,223 @@
+.base-mod-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  min-height: 70vh;
+  position: relative;
+  gap: 200px;
+  margin-top: 150px;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+.mod-rectangle {
+  width: 250px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.9);
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid #333;
+  font-weight: bold;
+}
+
+.mod-rectangle:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  background: #333;
+  color: white;
+}
+
+.top-rectangles,
+.bottom-rectangles {
+  display: flex;
+  justify-content: center;
+  gap: 400px;
+  position: relative;
+  width: 100%;
+}
+
+/* Lignes horizontales pour la rangée du haut */
+.top-rectangles::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 2px;
+  background-color: #333;
+}
+
+/* Lignes horizontales pour la rangée du bas */
+.bottom-rectangles::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 2px;
+  background-color: #333;
+}
+
+/* Ligne verticale gauche */
+.base-mod-container::before {
+  content: "";
+  position: absolute;
+  top: 210px;
+  left: calc(50% - 220px - 125px);
+  width: 2px;
+  height: 200px;
+  background-color: #333;
+}
+
+/* Ligne verticale droite */
+.base-mod-container::after {
+  content: "";
+  position: absolute;
+  top: 210px;
+  right: calc(50% - 220px - 125px);
+  width: 2px;
+  height: 200px;
+  background-color: #333;
+}
+
+@keyframes moveBall1 {
+  0% {
+    transform: translate(10px, 10px);
+  }
+  20% {
+    transform: translate(800px, 300px);
+  }
+  40% {
+    transform: translate(200px, 500px);
+  }
+  60% {
+    transform: translate(600px, 100px);
+  }
+  80% {
+    transform: translate(100px, 400px);
+  }
+  100% {
+    transform: translate(10px, 10px);
+  }
+}
+
+@keyframes moveBall2 {
+  0% {
+    transform: translate(800px, 10px);
+  }
+  25% {
+    transform: translate(200px, 400px);
+  }
+  50% {
+    transform: translate(700px, 500px);
+  }
+  75% {
+    transform: translate(400px, 200px);
+  }
+  100% {
+    transform: translate(800px, 10px);
+  }
+}
+
+@keyframes moveBall3 {
+  0% {
+    transform: translate(400px, 250px);
+  }
+  30% {
+    transform: translate(800px, 500px);
+  }
+  60% {
+    transform: translate(100px, 100px);
+  }
+  100% {
+    transform: translate(400px, 250px);
+  }
+}
+
+.moving-ball {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  top: 0;
+  left: 500px;
+  filter: blur(0.5px);
+}
+
+.moving-ball::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 40px;
+  height: 3px;
+  background: inherit;
+  filter: blur(4px);
+  opacity: 0.3;
+  transform-origin: right;
+}
+
+.ball-1 {
+  background: #ff6b6b;
+  animation: moveBall1 15s linear infinite;
+}
+
+.ball-1::before {
+  background: linear-gradient(to left, #ff6b6b, transparent);
+}
+
+.ball-2 {
+  background: #4ecdc4;
+  animation: moveBall2 18s linear infinite;
+}
+
+.ball-2::before {
+  background: linear-gradient(to left, #4ecdc4, transparent);
+}
+
+.ball-3 {
+  background: #410ce1;
+  animation: moveBall3 20s linear infinite;
+}
+
+.ball-3::before {
+  background: linear-gradient(to left, #410ce1, transparent);
+}
+
+/* Animation pour la rotation de la traînée */
+@keyframes rotateTail {
+  from {
+    transform: rotate(0deg) translateX(0);
+  }
+  to {
+    transform: rotate(360deg) translateX(0);
+  }
+}
+
+/* Ajout de l'animation de rotation pour la traînée */
+.moving-ball::before {
+  animation: rotateTail 2s linear infinite;
+}
+
+/* Amélioration de la visibilité des balles */
+.ball-1 {
+  box-shadow: 0 0 10px #ff6b6b;
+}
+
+.ball-2 {
+  box-shadow: 0 0 10px #4ecdc4;
+}
+
+.ball-3 {
+  box-shadow: 0 0 10px #ffe66d;
+}

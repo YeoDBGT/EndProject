@@ -10,7 +10,7 @@ const Header = () => {
       <header className="header">
         <div className="logo">
           <Link to="/" className="logo-link">
-            Logo
+            End Project
           </Link>
         </div>
 
@@ -40,6 +40,14 @@ const Header = () => {
             }`}
           >
             Heart Attack Prediction
+          </Link>
+          <Link
+            to="/WinningSco"
+            className={`header-button ${
+              location.pathname === "/WinningSco" ? "active" : ""
+            }`}
+          >
+            Student Grade Prediction
           </Link>
         </div>
 

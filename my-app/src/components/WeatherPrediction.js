@@ -77,9 +77,40 @@ function WeatherPrediction() {
     }
   };
 
+  const generateRandomValues = () => {
+    const randomData = {
+      temperature_min: (Math.random() * (20 - -5) + -5).toFixed(1), // Entre -5°C et 20°C
+      temperature_max: (Math.random() * (35 - 15) + 15).toFixed(1), // Entre 15°C et 35°C
+      pluie: (Math.random() * 50).toFixed(1), // Entre 0 et 50mm
+      humidite: Math.floor(Math.random() * (95 - 40) + 40), // Entre 40% et 95%
+      vent: Math.floor(Math.random() * (100 - 5) + 5), // Entre 5 et 100 km/h
+      pluie_aujourdhui: Math.random() > 0.5 ? "Oui" : "Non",
+    };
+
+    // Vérifier que la température max est supérieure à la température min
+    if (
+      parseFloat(randomData.temperature_max) <=
+      parseFloat(randomData.temperature_min)
+    ) {
+      randomData.temperature_max = (
+        parseFloat(randomData.temperature_min) + 5
+      ).toFixed(1);
+    }
+
+    setFormData(randomData);
+    setError("");
+  };
+
   return (
     <div className="meteo-prediction">
       <h2>Prédiction Météo</h2>
+      <button
+        type="button"
+        onClick={generateRandomValues}
+        className="random-button"
+      >
+        Générer des valeurs aléatoires
+      </button>
       {error && <div className="message-erreur">{error}</div>}
 
       <form onSubmit={handleSubmit} className="formulaire-meteo">
