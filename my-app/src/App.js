@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PredictionForm from "./components/PredictionForm";
@@ -19,9 +19,10 @@ import TextHattack from "./components/TextHattack";
 
 function App() {
   const location = useLocation(); // Permet de détecter la route actuelle
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
       <Header />
       <Banner />
       <Carroussel />

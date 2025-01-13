@@ -41,3 +41,15 @@
     opacity: 1;
   }
 }
+
+/* Styles pour le mode sombre */
+body.dark-mode .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+body.dark-mode .modal-content {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid #333;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}

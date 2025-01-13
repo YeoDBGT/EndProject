@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../css/Header.css";
+import { FaSun, FaMoon } from "react-icons/fa";
 
 const Header = () => {
   const location = useLocation();
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', darkMode);
+  }, [darkMode]);
 
   return (
     <>
@@ -12,6 +18,22 @@ const Header = () => {
           <Link to="/" className="logo-link">
             End Project
           </Link>
+        </div>
+
+        <div className="theme-switch-wrapper">
+          <div className="theme-switch">
+            <input
+              type="checkbox"
+              id="theme-toggle"
+              checked={darkMode}
+              onChange={() => setDarkMode(!darkMode)}
+            />
+            <label htmlFor="theme-toggle" className="theme-label">
+              <FaSun className="sun-icon" />
+              <FaMoon className="moon-icon" />
+              <span className="switch-handle"></span>
+            </label>
+          </div>
         </div>
 
         <div className="spacer"></div>
