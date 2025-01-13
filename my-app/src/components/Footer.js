@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p className="footer-name">Axel, Louis</p>
+        <p className="footer-name">Axel</p>
         <div className="footer-social">
           <a
             href="https://github.com/YeoDBGT"

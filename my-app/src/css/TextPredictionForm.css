@@ -1,23 +1,29 @@
 .text-prediction-container {
   max-width: 800px;
+  height: 300px;
   margin: 40px auto;
   padding: 30px;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
 .text-content {
   font-size: 16px;
   line-height: 1.6;
   color: #2c3e50;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
 }
 
 .text-content p {
   margin-bottom: 15px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
 }
 
-/* Animation du curseur */
 .text-content p:last-child::after {
   content: "|";
   animation: blink 1s infinite;
@@ -33,14 +39,31 @@
   }
 }
 
-/* Responsive */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .text-prediction-container {
     margin: 20px;
     padding: 20px;
+    height: 250px;
   }
 
   .text-content {
     font-size: 14px;
+  }
+
+  .text-content p {
+    animation: fadeInUp 0.5s forwards;
   }
 }

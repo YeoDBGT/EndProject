@@ -21,7 +21,13 @@ app = Flask(__name__)
 # Configuration sécurisée de CORS
 CORS(
     app,
-    resources={r"/predict": {"origins": ["http://localhost:3000"]}},
+    resources={
+        r"/*": {
+            "origins": ["http://147.93.52.112", "http://localhost:3000"],
+            "methods": ["GET", "POST", "OPTIONS"],
+            "allow_headers": ["Content-Type"]
+        }
+    },
     supports_credentials=True,
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -352,7 +358,7 @@ if __name__ == "__main__":
         model, _ = train_model(X, y)
 
         logger.info("L'application est prête et en cours d'exécution.")
-        app.run(debug=True, port=5050)
+        app.run(host='0.0.0.0', port=5050)
 
     except Exception as e:
         logger.error(f"Erreur lors de l'initialisation : {str(e)}")

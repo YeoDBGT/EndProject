@@ -37,20 +37,22 @@ Notre modèle est régulièrement mis à jour pour garantir des estimations fiab
   }, []);
 
   useEffect(() => {
+    let interval;
     if (isVisible) {
-      let currentIndex = 0;
-      const interval = setInterval(() => {
-        if (currentIndex <= fullText.length) {
-          setText(fullText.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-        }
+      interval = setInterval(() => {
+        setText((prev) => {
+          if (prev.length < fullText.length) {
+            return fullText.slice(0, prev.length + 1);
+          } else {
+            clearInterval(interval);
+            return prev;
+          }
+        });
       }, 10); // Vitesse de l'animation
-
-      return () => clearInterval(interval);
     }
-  }, [isVisible]);
+
+    return () => clearInterval(interval);
+  }, [isVisible, fullText]);
 
   return (
     <div className="text-prediction-container">

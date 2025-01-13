@@ -16,7 +16,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["http://147.93.52.112", "http://localhost:3000"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Initialiser le modèle et les transformateurs
 model = None
@@ -101,17 +107,17 @@ def predict():
         
         # Faire la prédiction
         prediction = model.predict(input_data)
-        probability = model.predict_proba(input_data)[0][1]
+        probability = model.predict_proba(input_data)[0][1] * 100
         
         # Préparer la réponse
         result = "Il pleuvra demain" if prediction[0] == 1 else "Il ne pleuvra pas demain"
         
-        logger.info(f"Prédiction effectuée : {result} (probabilité : {probability:.2f})")
+        logger.info(f"Prédiction effectuée : {result} (probabilité : {probability:.1f}%)")
         
         return jsonify({
             'success': True,
             'prediction': result,
-            'probability': f"{probability:.2f}"
+            'probability': f"{probability:.1f}"
         })
     
     except Exception as e:
@@ -123,6 +129,6 @@ if __name__ == '__main__':
         logger.info("Démarrage de l'application...")
         model = init_model()
         logger.info("L'application est prête et en cours d'exécution.")
-        app.run(debug=True, port=5101)
+        app.run(host='0.0.0.0', port=5101)
     except Exception as e:
         logger.error(f"Erreur lors du démarrage : {str(e)}")

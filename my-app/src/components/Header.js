@@ -20,24 +20,6 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="theme-switch-wrapper">
-          <div className="theme-switch">
-            <input
-              type="checkbox"
-              id="theme-toggle"
-              checked={darkMode}
-              onChange={() => setDarkMode(!darkMode)}
-            />
-            <label htmlFor="theme-toggle" className="theme-label">
-              <FaSun className="sun-icon" />
-              <FaMoon className="moon-icon" />
-              <span className="switch-handle"></span>
-            </label>
-          </div>
-        </div>
-
-        <div className="spacer"></div>
-
         <div className="buttons">
           <Link
             to="/PricePrediction"
@@ -73,7 +55,21 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="end-space"></div>
+        <div className="theme-switch-wrapper">
+          <div className="theme-switch">
+            <input
+              type="checkbox"
+              id="theme-toggle"
+              checked={darkMode}
+              onChange={() => setDarkMode(!darkMode)}
+            />
+            <label htmlFor="theme-toggle" className="theme-label">
+              <FaSun className="sun-icon" />
+              <FaMoon className="moon-icon" />
+              <span className="switch-handle"></span>
+            </label>
+          </div>
+        </div>
       </header>
       <div className="space1"></div>
     </>

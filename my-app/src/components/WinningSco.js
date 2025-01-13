@@ -3,6 +3,14 @@ import axios from "axios";
 import "../css/WinningSco.css";
 import Modal from "./Modal";
 
+// Configuration d'axios pour WinningSco
+const api = axios.create({
+  baseURL: "http://147.93.52.112:5054",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 function StudentGradePrediction() {
   const [formData, setFormData] = useState({
     sex: "",
@@ -127,10 +135,7 @@ function StudentGradePrediction() {
       // Ajouter un délai artificiel de 2 secondes
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      const response = await axios.post(
-        "http://localhost:5054/predict-study-alcohol",
-        formData
-      );
+      const response = await api.post("/predict-study-alcohol", formData);
 
       if (response.data.success) {
         setPrediction(response.data.predicted_grade);
@@ -138,6 +143,7 @@ function StudentGradePrediction() {
         setError(response.data.error || "Erreur de prédiction");
       }
     } catch (err) {
+      console.error("Erreur détaillée:", err.response || err);
       setError("Erreur lors de la communication avec le serveur.");
     } finally {
       setLoading(false);
@@ -187,6 +193,7 @@ function StudentGradePrediction() {
             required
             min="15"
             max="22"
+            placeholder=" "
             title="Âge de l'étudiant (15 à 22 ans)"
           />
           <small className="form-text">
@@ -322,6 +329,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="4"
+            placeholder=" "
             title="Temps de trajet quotidien de l'étudiant en minutes (1: <15 min, 2: 15-30 min, 3: 30-60 min, 4: >60 min)"
           />
           <small className="form-text">
@@ -340,6 +348,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="4"
+            placeholder=" "
             title="Nombre d'heures d'étude par semaine (1: <2 heures, 2: 2-5 heures, 3: 5-10 heures, 4: >10 heures)"
           />
           <small className="form-text">
@@ -358,6 +367,7 @@ function StudentGradePrediction() {
             required
             min="0"
             max="3"
+            placeholder=" "
             title="Nombre de fois que l'étudiant a échoué une matière (0 à 3)"
           />
           <small className="form-text">Entre 0 et 3 échecs.</small>
@@ -510,6 +520,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="5"
+            placeholder=" "
             title="Qualité des relations familiales (1: Très faible, 5: Très élevée)"
           />
           <small className="form-text">
@@ -529,6 +540,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="5"
+            placeholder=" "
             title="Temps libre disponible pour l'étudiant (1: Très peu, 5: Beaucoup)"
           />
           <small className="form-text">
@@ -548,6 +560,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="5"
+            placeholder=" "
             title="Fréquence des sorties (1: Rarement, 5: Très souvent)"
           />
           <small className="form-text">
@@ -566,6 +579,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="5"
+            placeholder=" "
             title="Fréquence de consommation d'alcool en semaine (1: Rarement, 5: Très souvent)"
           />
           <small className="form-text">1: Rarement, 5: Très souvent.</small>
@@ -582,6 +596,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="5"
+            placeholder=" "
             title="Fréquence de consommation d'alcool le weekend (1: Rarement, 5: Très souvent)"
           />
           <small className="form-text">1: Rarement, 5: Très souvent.</small>
@@ -598,6 +613,7 @@ function StudentGradePrediction() {
             required
             min="1"
             max="5"
+            placeholder=" "
             title="État de santé général de l'étudiant (1: Très mauvais, 5: Excellent)"
           />
           <small className="form-text">1: Très mauvais, 5: Excellent.</small>
@@ -613,6 +629,7 @@ function StudentGradePrediction() {
             onChange={handleChange}
             required
             min="0"
+            placeholder=" "
             title="Nombre total d'absences de l'étudiant"
           />
           <small className="form-text">
@@ -631,6 +648,7 @@ function StudentGradePrediction() {
             required
             min="0"
             max="20"
+            placeholder=" "
             title="Première note (G1) de l'étudiant (entre 0 et 20)"
           />
           <small className="form-text">
@@ -649,6 +667,7 @@ function StudentGradePrediction() {
             required
             min="0"
             max="20"
+            placeholder=" "
             title="Deuxième note (G2) de l'étudiant (entre 0 et 20)"
           />
           <small className="form-text">

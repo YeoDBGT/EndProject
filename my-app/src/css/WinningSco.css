@@ -200,3 +200,21 @@ button[type="submit"].loading {
     opacity: 1;
   }
 }
+
+.form-group input:invalid {
+  border-color: #dce0e3;
+}
+
+.form-group select {
+  border-color: #dce0e3;
+}
+
+.form-group input:invalid:not(:placeholder-shown) {
+  border-color: #e74c3c;
+  background-color: #fff6f6;
+}
+
+.form-group input:invalid:focus:not(:placeholder-shown) {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+}

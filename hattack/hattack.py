@@ -15,7 +15,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/*": {
+        "origins": ["http://147.93.52.112", "http://localhost:3000"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 model = None
 scaler = MinMaxScaler()
@@ -126,6 +132,6 @@ if __name__ == '__main__':
         logger.info("Démarrage de l'application...")
         model = init_model()
         logger.info("L'application est prête et en cours d'exécution.")
-        app.run(debug=True, port=8080)
+        app.run(host='0.0.0.0', port=8080)
     except Exception as e:
         logger.error(f"Erreur lors du démarrage : {str(e)}")

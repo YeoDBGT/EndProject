@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../css/TextHattack.css";
 
 const TextHattack = () => {
-  const [text, setText] = useState("");
+  const [visibleParagraphs, setVisibleParagraphs] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  const fullText = `Notre système d'évaluation des risques cardiaques utilise l'intelligence artificielle pour estimer la probabilité d'une crise cardiaque.
+  const paragraphs = `Notre système d'évaluation des risques cardiaques utilise l'intelligence artificielle pour estimer la probabilité d'une crise cardiaque.
 
 Comment ça marche ?
 
@@ -21,7 +21,7 @@ Comment ça marche ?
 
 Vous pouvez utiliser le bouton "Générer des valeurs aléatoires" pour tester différents profils de patients.
 
-IMPORTANT : Cette évaluation est fournie à titre informatif uniquement et ne remplace en aucun cas une consultation médicale professionnelle. En cas de symptômes inquiétants, consultez immédiatement un médecin.`;
+IMPORTANT : Cette évaluation est fournie à titre informatif uniquement et ne remplace en aucun cas une consultation médicale professionnelle. En cas de symptômes inquiétants, consultez immédiatement un médecin.`.split("\n\n");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,25 +42,27 @@ IMPORTANT : Cette évaluation est fournie à titre informatif uniquement et ne r
   }, []);
 
   useEffect(() => {
+    let interval;
     if (isVisible) {
-      let currentIndex = 0;
-      const interval = setInterval(() => {
-        if (currentIndex <= fullText.length) {
-          setText(fullText.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 10);
-
-      return () => clearInterval(interval);
+      interval = setInterval(() => {
+        setVisibleParagraphs((prev) => {
+          if (prev < paragraphs.length) {
+            return prev + 1;
+          } else {
+            clearInterval(interval);
+            return prev;
+          }
+        });
+      }, 500); // Interval ajusté pour une apparition par paragraphe
     }
-  }, [isVisible]);
+
+    return () => clearInterval(interval);
+  }, [isVisible, paragraphs.length]);
 
   return (
     <div className="text-heart-container">
       <div className="text-content">
-        {text.split("\n").map((paragraph, index) => (
+        {paragraphs.slice(0, visibleParagraphs).map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
         ))}
       </div>

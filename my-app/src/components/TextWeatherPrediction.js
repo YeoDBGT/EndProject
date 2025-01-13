@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../css/TextWeatherPrediction.css";
 
 const TextWeatherPrediction = () => {
-  const [text, setText] = useState("");
+  const [visibleParagraphs, setVisibleParagraphs] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  const fullText = `Notre prédicteur météorologique utilise l'intelligence artificielle pour prévoir la probabilité de pluie pour le lendemain.
+  const paragraphs = `Notre prédicteur météorologique utilise l'intelligence artificielle pour prévoir la probabilité de pluie pour le lendemain.
 
 Comment ça marche ?
 
@@ -21,7 +21,7 @@ Comment ça marche ?
 
 Vous pouvez utiliser le bouton "Générer des valeurs aléatoires" pour tester le prédicteur avec différentes conditions météorologiques.
 
-Notre modèle est régulièrement mis à jour avec les dernières données météorologiques pour garantir des prédictions précises.`;
+Notre modèle est régulièrement mis à jour avec les dernières données météorologiques pour garantir des prédictions précises.`.split("\n\n");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,25 +42,27 @@ Notre modèle est régulièrement mis à jour avec les dernières données mét�
   }, []);
 
   useEffect(() => {
+    let interval;
     if (isVisible) {
-      let currentIndex = 0;
-      const interval = setInterval(() => {
-        if (currentIndex <= fullText.length) {
-          setText(fullText.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 10);
-
-      return () => clearInterval(interval);
+      interval = setInterval(() => {
+        setVisibleParagraphs((prev) => {
+          if (prev < paragraphs.length) {
+            return prev + 1;
+          } else {
+            clearInterval(interval);
+            return prev;
+          }
+        });
+      }, 500); // Interval ajusté pour une apparition par paragraphe
     }
-  }, [isVisible]);
+
+    return () => clearInterval(interval);
+  }, [isVisible, paragraphs.length]);
 
   return (
     <div className="text-weather-container">
       <div className="text-content">
-        {text.split("\n").map((paragraph, index) => (
+        {paragraphs.slice(0, visibleParagraphs).map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
         ))}
       </div>

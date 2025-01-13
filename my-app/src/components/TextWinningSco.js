@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../css/TextWinningSco.css";
 
 const TextWinningSco = () => {
-  const [text, setText] = useState("");
+  const [visibleParagraphs, setVisibleParagraphs] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  const fullText = `Notre prédicteur de notes finales utilise l'intelligence artificielle pour estimer vos résultats scolaires.
+  const paragraphs = `Notre prédicteur de notes finales utilise l'intelligence artificielle pour estimer vos résultats scolaires.
 
 Comment ça marche ?
 
@@ -22,7 +22,7 @@ Vous pouvez utiliser le bouton "Générer des valeurs aléatoires" pour tester d
 
 Notre modèle est basé sur une analyse approfondie des parcours scolaires et des facteurs de réussite académique.
 
-Note : Cette prédiction est fournie à titre indicatif et ne remplace pas le travail personnel et l'engagement dans les études.`;
+Note : Cette prédiction est fournie à titre indicatif et ne remplace pas le travail personnel et l'engagement dans les études.`.split("\n\n");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,25 +43,27 @@ Note : Cette prédiction est fournie à titre indicatif et ne remplace pas le tr
   }, []);
 
   useEffect(() => {
+    let interval;
     if (isVisible) {
-      let currentIndex = 0;
-      const interval = setInterval(() => {
-        if (currentIndex <= fullText.length) {
-          setText(fullText.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 10);
-
-      return () => clearInterval(interval);
+      interval = setInterval(() => {
+        setVisibleParagraphs((prev) => {
+          if (prev < paragraphs.length) {
+            return prev + 1;
+          } else {
+            clearInterval(interval);
+            return prev;
+          }
+        });
+      }, 500); // Interval ajusté pour une apparition par paragraphe
     }
-  }, [isVisible]);
+
+    return () => clearInterval(interval);
+  }, [isVisible, paragraphs.length]);
 
   return (
     <div className="text-winning-container">
       <div className="text-content">
-        {text.split("\n").map((paragraph, index) => (
+        {paragraphs.slice(0, visibleParagraphs).map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
         ))}
       </div>

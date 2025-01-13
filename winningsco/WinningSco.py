@@ -21,7 +21,13 @@ app = Flask(__name__)
 # Configuration sécurisée de CORS
 CORS(
     app,
-    resources={r"/predict-study-alcohol": {"origins": ["http://localhost:3000"]}},
+    resources={
+        r"/*": {
+            "origins": ["http://147.93.52.112", "http://localhost:3000"],
+            "methods": ["GET", "POST", "OPTIONS"],
+            "allow_headers": ["Content-Type"]
+        }
+    },
     supports_credentials=True,
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -220,4 +226,4 @@ def predict_study_alcohol():
         return jsonify({'success': False, 'error': str(e)}), 400
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5054)
+    app.run(host='0.0.0.0', port=5054)

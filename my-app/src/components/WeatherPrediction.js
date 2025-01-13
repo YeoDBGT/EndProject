@@ -3,6 +3,13 @@ import axios from "axios";
 import "../css/WeatherPrediction.css";
 import Modal from "./Modal";
 
+const api = axios.create({
+  baseURL: "http://147.93.52.112:5054",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 function WeatherPrediction() {
   const [prediction, setPrediction] = useState("");
   const [probability, setProbability] = useState("");
@@ -55,7 +62,7 @@ function WeatherPrediction() {
       };
 
       const response = await axios.post(
-        "http://localhost:5101/api/predict",
+        "http://147.93.52.112:5101/api/predict",
         apiData
       );
 
