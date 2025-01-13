@@ -230,7 +230,7 @@ function StudentGradePrediction() {
           >
             <option value="">Sélectionnez la taille de la famille</option>
             <option value="LE3">≤ 3</option>
-            <option value="GT3">> 3</option>
+            <option value="GT3"> 3</option>
           </select>
           <small className="form-text">
             LE3 pour 3 ou moins, GT3 pour plus de 3.

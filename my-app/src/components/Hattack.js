@@ -310,7 +310,7 @@ const HeartAttackForm = () => {
           </select>
           <small className="form-text">
             Nombre de vaisseaux coronaires majeurs présentant un rétrécissement
-            significatif (>50%). Plus le nombre est élevé, plus le risque est
+            significatif (Inférieur à 50%). Plus le nombre est élevé, plus le risque est
             important.
           </small>
         </div>
