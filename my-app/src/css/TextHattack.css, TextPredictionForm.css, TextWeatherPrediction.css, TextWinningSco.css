@@ -1,0 +1,20 @@
+@media (max-width: 1024px) {
+  .text-*-container {
+    max-width: 90%;
+    height: 250px;
+    margin: 30px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .text-*-container {
+    max-width: 95%;
+    height: 200px;
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .text-content {
+    font-size: 14px;
+  }
+} 

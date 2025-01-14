@@ -242,3 +242,47 @@
     opacity: 1; /* Visible la nuit */
   }
 }
+
+@media (max-width: 1024px) {
+  .banner {
+    height: 500px;
+  }
+
+  .sky {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 400px;
+    margin: 20px 0;
+  }
+
+  .sky {
+    height: 300px;
+  }
+
+  .sun {
+    width: 80px;
+    height: 80px;
+    top: 60px;
+    right: 60px;
+  }
+
+  .moon {
+    width: 60px;
+    height: 60px;
+    top: 60px;
+    left: 60px;
+  }
+
+  .desert {
+    height: 100px;
+  }
+
+  .robot {
+    width: 120px;
+    bottom: 80px;
+  }
+}

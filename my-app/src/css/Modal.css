@@ -53,3 +53,18 @@ body.dark-mode .modal-content {
   border: 1px solid #333;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
+
+@media (max-width: 1024px) {
+  .modal-content {
+    max-width: 80%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+    padding: 10px;
+    margin: 10px;
+  }
+}

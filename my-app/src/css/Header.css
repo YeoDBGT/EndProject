@@ -9,6 +9,8 @@
   padding: 15px 30px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .logo-link {
@@ -182,4 +184,61 @@ body.dark-mode .logo-link:hover {
 
 .logo {
   margin-right: 40px;
+}
+
+/* Ajout des styles pour l'état scrolled */
+.header.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Modification du mode sombre pour l'état scrolled */
+body.dark-mode .header.scrolled {
+  background-color: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(5px);
+}
+
+/* Ajout des media queries */
+@media (max-width: 1024px) {
+  .header {
+    padding: 10px 20px;
+  }
+
+  .buttons {
+    gap: 10px;
+  }
+
+  .header-button {
+    padding: 8px 15px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .logo {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .header-button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .space1 {
+    height: 160px;
+  }
 }
