@@ -243,20 +243,11 @@
   }
 }
 
+/* Tablette */
 @media (max-width: 1024px) {
   .banner {
-    height: 500px;
-  }
-
-  .sky {
     height: 400px;
-  }
-}
-
-@media (max-width: 768px) {
-  .banner {
-    height: 400px;
-    margin: 20px 0;
+    margin: 25px 0;
   }
 
   .sky {
@@ -264,25 +255,214 @@
   }
 
   .sun {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     top: 60px;
     right: 60px;
+    box-shadow: 0 0 50px rgba(249, 215, 28, 0.5);
   }
 
   .moon {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     top: 60px;
     left: 60px;
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.5);
   }
 
   .desert {
-    height: 100px;
+    height: 120px;
   }
 
   .robot {
-    width: 120px;
-    bottom: 80px;
+    width: 150px;
+    bottom: 100px;
+  }
+
+  .cactus {
+    bottom: 105px;
+  }
+
+  .cactus-1 {
+    width: 70px;
+  }
+
+  .cactus-2 {
+    width: 85px;
+  }
+
+  .cactus-3 {
+    width: 60px;
+  }
+
+  @keyframes sun-move {
+    0% {
+      top: 60px;
+      right: 60px;
+      opacity: 1;
+    }
+    50% {
+      top: 350px;
+      right: -120px;
+      opacity: 0;
+    }
+    100% {
+      top: 60px;
+      right: 60px;
+      opacity: 1;
+    }
+  }
+
+  @keyframes moon-move {
+    0% {
+      top: 350px;
+      left: -120px;
+      opacity: 0;
+    }
+    50% {
+      top: 60px;
+      left: 60px;
+      opacity: 1;
+    }
+    100% {
+      top: 350px;
+      left: -120px;
+      opacity: 0;
+    }
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .banner {
+    height: 300px;
+    margin: 20px 0;
+  }
+
+  .sky {
+    height: 220px;
+  }
+
+  .sun {
+    width: 60px;
+    height: 60px;
+    top: 40px;
+    right: 40px;
+    box-shadow: 0 0 30px rgba(249, 215, 28, 0.5);
+  }
+
+  .moon {
+    width: 50px;
+    height: 50px;
+    top: 40px;
+    left: 40px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+  }
+
+  .desert {
+    height: 80px;
+  }
+
+  .robot {
+    width: 100px;
+    bottom: 65px;
+  }
+
+  .cactus {
+    bottom: 70px;
+  }
+
+  .cactus-1 {
+    width: 45px;
+  }
+
+  .cactus-2 {
+    width: 55px;
+  }
+
+  .cactus-3 {
+    width: 40px;
+  }
+
+  @keyframes sun-move {
+    0% {
+      top: 40px;
+      right: 40px;
+      opacity: 1;
+    }
+    50% {
+      top: 250px;
+      right: -80px;
+      opacity: 0;
+    }
+    100% {
+      top: 40px;
+      right: 40px;
+      opacity: 1;
+    }
+  }
+
+  @keyframes moon-move {
+    0% {
+      top: 250px;
+      left: -80px;
+      opacity: 0;
+    }
+    50% {
+      top: 40px;
+      left: 40px;
+      opacity: 1;
+    }
+    100% {
+      top: 250px;
+      left: -80px;
+      opacity: 0;
+    }
+  }
+
+  @keyframes move-desert {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -1000px 0;
+    }
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+  .banner {
+    height: 250px;
+    margin: 15px 0;
+  }
+
+  .sky {
+    height: 180px;
+  }
+
+  .desert {
+    height: 70px;
+  }
+
+  .robot {
+    width: 80px;
+    bottom: 55px;
+  }
+
+  .cactus {
+    bottom: 60px;
+  }
+
+  .cactus-1 {
+    width: 35px;
+  }
+
+  .cactus-2 {
+    width: 45px;
+  }
+
+  .cactus-3 {
+    width: 30px;
   }
 }

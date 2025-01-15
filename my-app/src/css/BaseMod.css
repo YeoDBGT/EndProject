@@ -221,3 +221,95 @@
 .ball-3 {
   box-shadow: 0 0 10px #ffe66d;
 }
+
+@media (max-width: 1024px) {
+  .base-mod-container {
+    gap: 100px;
+    margin-top: 100px;
+    padding: 30px;
+  }
+
+  .top-rectangles,
+  .bottom-rectangles {
+    gap: 200px;
+  }
+
+  .top-rectangles::after,
+  .bottom-rectangles::after {
+    width: 200px;
+    left: calc(50% - 100px);
+  }
+
+  .base-mod-container::before {
+    left: calc(50% - 120px - 125px);
+    height: 100px;
+  }
+
+  .base-mod-container::after {
+    right: calc(50% - 120px - 125px);
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .base-mod-container {
+    gap: 30px;
+    margin-top: 80px;
+    padding: 20px;
+  }
+
+  .top-rectangles,
+  .bottom-rectangles {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .mod-rectangle {
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* Suppression des lignes horizontales sur mobile */
+  .top-rectangles::after,
+  .bottom-rectangles::after {
+    display: none;
+  }
+
+  /* Suppression des lignes verticales sur mobile */
+  .base-mod-container::before,
+  .base-mod-container::after {
+    display: none;
+  }
+
+  /* Ajustement des animations des balles pour mobile */
+  @keyframes moveBall1 {
+    0% { transform: translate(10px, 10px); }
+    50% { transform: translate(200px, 300px); }
+    100% { transform: translate(10px, 10px); }
+  }
+
+  @keyframes moveBall2 {
+    0% { transform: translate(200px, 10px); }
+    50% { transform: translate(50px, 200px); }
+    100% { transform: translate(200px, 10px); }
+  }
+
+  @keyframes moveBall3 {
+    0% { transform: translate(100px, 150px); }
+    50% { transform: translate(150px, 300px); }
+    100% { transform: translate(100px, 150px); }
+  }
+
+  .moving-ball {
+    width: 8px;
+    height: 8px;
+  }
+
+  .moving-ball::before {
+    width: 20px;
+  }
+}
