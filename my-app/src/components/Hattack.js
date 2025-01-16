@@ -4,7 +4,7 @@ import "../css/Hattack.css";
 import Modal from "./Modal";
 
 const api = axios.create({
-  baseURL: "http://147.93.52.112:8080",
+  baseURL: "https://endprojectdevia.xyz",
   headers: {
     "Content-Type": "application/json",
   },

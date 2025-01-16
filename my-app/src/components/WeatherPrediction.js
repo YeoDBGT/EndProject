@@ -4,7 +4,7 @@ import "../css/WeatherPrediction.css";
 import Modal from "./Modal";
 
 const api = axios.create({
-  baseURL: "http://147.93.52.112:5054",
+  baseURL: "https://endprojectdevia.xyz/api/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -61,10 +61,7 @@ function WeatherPrediction() {
         Temp3pm: "19",
       };
 
-      const response = await axios.post(
-        "http://147.93.52.112:5101/api/predict",
-        apiData
-      );
+      const response = await api.post("predict", apiData);
 
       if (response.data.success) {
         setPrediction(response.data.prediction);

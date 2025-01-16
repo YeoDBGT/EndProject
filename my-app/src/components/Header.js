@@ -41,25 +41,25 @@ const Header = () => {
         {/* Navigation desktop */}
         <div className="buttons">
           <Link
-            to="/PricePrediction"
+            to="/carsprice"
             className={`header-button ${location.pathname === "/PricePrediction" ? "active" : ""}`}
           >
             Cars Predictions
           </Link>
           <Link
-            to="/WeatherPrediction"
+            to="/weather"
             className={`header-button ${location.pathname === "/WeatherPrediction" ? "active" : ""}`}
           >
             Weather Prediction
           </Link>
           <Link
-            to="/HeartAttackPrediction"
+            to="/heartattack"
             className={`header-button ${location.pathname === "/HeartAttackPrediction" ? "active" : ""}`}
           >
             Heart Attack Prediction
           </Link>
           <Link
-            to="/WinningSco"
+            to="/student"
             className={`header-button ${location.pathname === "/WinningSco" ? "active" : ""}`}
           >
             Student Grade Prediction

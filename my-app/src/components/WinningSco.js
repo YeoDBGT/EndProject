@@ -5,7 +5,7 @@ import Modal from "./Modal";
 
 // Configuration d'axios pour WinningSco
 const api = axios.create({
-  baseURL: "http://147.93.52.112:5054",
+  baseURL: "https://endprojectdevia.xyz",
   headers: {
     "Content-Type": "application/json",
   },

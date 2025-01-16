@@ -37,7 +37,7 @@ function App() {
           <Routes location={location}>
             <Route path="/" element={<BaseMod />} />
             <Route
-              path="/PricePrediction"
+              path="/carsprice"
               element={
                 <>
                   <TextPredictionForm />
@@ -47,7 +47,7 @@ function App() {
             />
 
             <Route
-              path="/WeatherPrediction"
+              path="/weather"
               element={
                 <>
                   <TextWeatherPrediction />
@@ -56,7 +56,7 @@ function App() {
               }
             />
             <Route
-              path="/HeartAttackPrediction"
+              path="/heartattack"
               element={
                 <>
                   <TextHattack />
@@ -65,7 +65,7 @@ function App() {
               }
             />
             <Route
-              path="/WinningSco"
+              path="/student"
               element={
                 <>
                   <TextWinningSco />

@@ -10,18 +10,18 @@ function BaseMod() {
       <div className="moving-ball ball-3"></div>
 
       <div className="top-rectangles">
-        <Link to="/PricePrediction" className="mod-rectangle">
+        <Link to="/carsprice" className="mod-rectangle">
           Prédiction de Prix
         </Link>
-        <Link to="/WeatherPrediction" className="mod-rectangle">
+        <Link to="/weather" className="mod-rectangle">
           Prédiction Météo
         </Link>
       </div>
       <div className="bottom-rectangles">
-        <Link to="/HeartAttackPrediction" className="mod-rectangle">
+        <Link to="/heartattack" className="mod-rectangle">
           Prédiction Cardiaque
         </Link>
-        <Link to="/WinningSco" className="mod-rectangle">
+        <Link to="/student" className="mod-rectangle">
           Prédiction Résultat étudiant
         </Link>
       </div>
