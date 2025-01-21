@@ -26,7 +26,8 @@ CORS(
             "origins": [
                 "http://localhost:3000",
                 "http://147.93.52.112",
-                "https://endprojectdevia.xyz"
+                "http://endprojectdevia.xyz",
+                "http://www.endprojectdevia.xyz"
             ],
             "methods": ["GET", "POST", "OPTIONS"],
             "allow_headers": ["Content-Type"]

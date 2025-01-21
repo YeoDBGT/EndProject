@@ -4,7 +4,7 @@ import "../css/WeatherPrediction.css";
 import Modal from "./Modal";
 
 const api = axios.create({
-  baseURL: "https://endprojectdevia.xyz/api/",
+  baseURL: "https://endprojectdevia.xyz/api",
   headers: {
     "Content-Type": "application/json",
   },
