@@ -4,7 +4,7 @@ import "../css/Hattack.css";
 import Modal from "./Modal";
 
 const api = axios.create({
-  baseURL: "https://endprojectdevia.xyz",
+  baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
   },
@@ -310,8 +310,8 @@ const HeartAttackForm = () => {
           </select>
           <small className="form-text">
             Nombre de vaisseaux coronaires majeurs présentant un rétrécissement
-            significatif (Inférieur à 50%). Plus le nombre est élevé, plus le risque est
-            important.
+            significatif (Inférieur à 50%). Plus le nombre est élevé, plus le
+            risque est important.
           </small>
         </div>
 

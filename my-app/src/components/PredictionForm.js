@@ -6,7 +6,7 @@ import "../css/PredictionForm.css";
 
 // Configuration d'axios
 const api = axios.create({
-  baseURL: "http://endprojectdevia.xyz",
+  baseURL: "http://localhost:5050",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
